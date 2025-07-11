@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{# TODO: #}
+
+{% block body %}
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+        <div>
+            <!-- Logo -->
+            <img class="mx-auto" src="/img/Logo.svg" alt="Logo" />
+            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create a new account </h2>
+        </div>
+        {{ form_start(registrationForm) }}
+
+        <div class="pt-2">
+            <label for="email-address" class="sr-only">Email</label>
+            {{ form_row(registrationForm.email, {'attr': {'class': 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 mt-2'}})}}
+        </div>
+        
+        <div class="pt-2">
+            <label for="firstname" class="sr-only">Firstname</label>
+            {{ form_row(registrationForm.firstName, {'attr': {'class': 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 mt-2'}})}}
+        </div>
+        
+        <div class="pt-2">
+            <label for="lastname" class="sr-only">Lastname</label>
+            {{ form_row(registrationForm.lastName, {'attr': {'class': 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 mt-2'}})}}
+        </div>
+
+        <div class="pt-2">
+            <label for="inputPassword" class="sr-only">Password</label>
+            {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 mt-2'}})}}
+        </div>
+
+        <div class="pt-2">
+            <label for="ConfirmPassword" class="sr-only">Password</label>
+            {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 mt-2'}})}}
+        </div>
+
+        <div class="pt-2">
+            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'ml-2'}}) }}
+        </div>
+
+
+        <div class="pt-4">
+            <button type="submit"
+                class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <!-- Heroicon name: mini/lock-closed -->
+                    <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                    </svg>
+                </span>
+                Register
+            </button>
+        </div>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

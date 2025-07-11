@@ -1,0 +1,86 @@
+<header class="bg-white" x-data="{ mobileMenuOpen: false }">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="#" class="-m-1.5 p-1.5">
+        <span class="sr-only">Your Company</span>
+        <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+      </a>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      <a href="#" class="text-sm/6 font-semibold text-gray-900">Product</a>
+      <a href="#" class="text-sm/6 font-semibold text-gray-900">Features</a>
+      <a href="#" class="text-sm/6 font-semibold text-gray-900">Marketplace</a>
+      <a href="#" class="text-sm/6 font-semibold text-gray-900">Company</a>
+    </div>
+    <div class="flex flex-1 items-center justify-end gap-x-6">
+      {% if is_granted('ROLE_USER') %}
+        <div class="group relative">
+          <a href="{{ path('app_logout') }}" class="-m-2 block p-2 text-gray-500">{{ 'logout'|trans }}</a>
+          <a href="/dashboard" class="-m-2 block p-2 text-gray-500">dashbaord</a>
+        </div>
+      {% else %}
+        <div class="group relative">
+          <a href="{{ path('app_login') }}" class="-m-2 inline-block p-2 text-gray-500">{{ 'login'|trans }}</a>
+        </div>
+        <div class="ml-4 lg:ml-6">
+          <a href="{{ path('app_register') }}" class="-m-2 p-2 text-gray-500 flex justify-end">{{ 'sign_up'|trans }}</a>
+        </div>
+      {% endif %}
+    </div>
+    <div class="flex lg:hidden">
+      <button
+        type="button"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        @click="mobileMenuOpen = true"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    class="lg:hidden"
+    x-show="mobileMenuOpen"
+    x-transition
+    x-cloak
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="fixed inset-0 z-50 bg-black/30" @click="mobileMenuOpen = false"></div>
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+      <div class="flex items-center gap-x-6">
+        <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">Your Company</span>
+          <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+        </a>
+        {% if is_granted('ROLE_USER') %}
+							<div class="flow-root">
+								<a href="{{ path('app_logout') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">{{ 'logout'|trans }}</a>
+							</div>
+						{% else %}
+							<div class="flow-root">
+								<a href="{{ path('app_login') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">{{ 'login'|trans }}</a>
+							</div>
+							<div class="flow-root">
+								<a href="{{ path('app_register') }}" class="text-sm font-medium text-gray-700 hover:text-gray-800">{{ 'sign_up'|trans }}</a>
+							</div>
+						{% endif %}
+
+        <button
+          type="button"
+          class="-m-2.5 rounded-md p-2.5 text-gray-700"
+          @click="mobileMenuOpen = false"
+        >
+          <span class="sr-only">Close menu</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

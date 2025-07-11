@@ -1,0 +1,37 @@
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+.flash-success {
+    margin: 10px 50px;
+    background-color: #91d48e;
+    color: #176100;
+    padding: 12px;
+    border-radius: 5px;
+    border: 2px solid #176100;
+}
+
+.flash-error {
+    margin: 10px 50px;
+    background-color: #d48e8e;
+    color: #610000;
+    padding: 12px;
+    border-radius: 5px;
+    border: 2px solid #610000;
+}
+
+.flash-warning {
+    margin: 10px 50px;
+    background-color: #d4be8e;
+    color: #614a00;
+    padding: 12px;
+    border-radius: 5px;
+    border: 2px solid #614a00;
+}
