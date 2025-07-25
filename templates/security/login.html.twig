@@ -17,7 +17,9 @@
 		</div>
 		<form class="mt-8 space-y-6" method="POST">
 			{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+				<span class="font-medium">{{ error.messageKey|trans(error.messageData, 'security') }}</span> 
+			</div>
 			{% endif %}
 			{% if app.user %}
 			<div class="mb-3">

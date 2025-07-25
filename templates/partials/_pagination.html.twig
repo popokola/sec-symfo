@@ -1,0 +1,49 @@
+{% if pageCount > 1 %}
+  <div class="flex justify-center mt-6">
+    <nav class="inline-flex rounded-md shadow-sm isolate" aria-label="Pagination">
+      {% if first is defined and current != first %}
+        <a href="{{ path(route, query|merge({(pageParameterName): first})) }}"
+           class="relative inline-flex items-center rounded-l-md px-3 py-2 text-sm font-medium text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-indigo-600 focus:z-20 focus:outline-offset-0">
+          &laquo;
+        </a>
+      {% endif %}
+
+      {% if previous is defined %}
+        <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}"
+           rel="prev"
+           class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-indigo-600 focus:z-20 focus:outline-offset-0">
+          &lsaquo;
+        </a>
+      {% endif %}
+
+      {% for page in pagesInRange %}
+        {% if page == current %}
+          <span aria-current="page"
+                class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-indigo-600 ring-1 ring-inset ring-indigo-600 focus:z-20">
+            {{ page }}
+          </span>
+        {% else %}
+          <a href="{{ path(route, query|merge({(pageParameterName): page})) }}"
+             class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-indigo-600 focus:z-20 focus:outline-offset-0">
+            {{ page }}
+          </a>
+        {% endif %}
+      {% endfor %}
+
+      {% if next is defined %}
+        <a href="{{ path(route, query|merge({(pageParameterName): next})) }}"
+           rel="next"
+           class="relative inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-indigo-600 focus:z-20 focus:outline-offset-0">
+          &rsaquo;
+        </a>
+      {% endif %}
+
+      {% if last is defined and current != last %}
+        <a href="{{ path(route, query|merge({(pageParameterName): last})) }}"
+           class="relative inline-flex items-center rounded-r-md px-3 py-2 text-sm font-medium text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-indigo-600 focus:z-20 focus:outline-offset-0">
+          &raquo;
+        </a>
+      {% endif %}
+    </nav>
+  </div>
+{% endif %}

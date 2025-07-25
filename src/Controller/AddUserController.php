@@ -65,7 +65,7 @@ class AddUserController extends AbstractController
             );
 
             $this->addFlash('success', 'User added successfully! A confirmation email has been sent to the user.');
-            return $this->redirectToRoute('app_dashbaord');
+            return $this->redirectToRoute('app_member');
         }
 
         return $this->render('add_user/index.html.twig', [

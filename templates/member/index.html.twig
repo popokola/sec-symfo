@@ -25,12 +25,22 @@
           <table class="min-w-full divide-y divide-gray-300">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
+                {% import 'macros/sortable_label.html.twig' as macros %}
+                {% set sortParam = app.request.get('sort') %}
+                {% set direction = app.request.get('direction') %}
+              
+                {{ macros.sortable(users, 'Name', 'u.email', sortParam, direction) }}
                 <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Active</th>
                 <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Role</th>
-                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Approuved</th>
-                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Actions</th>
+                {{ macros.sortable(users, 'Approuved', 'u.approuved', sortParam, direction) }}
                 
+                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Actions</th>
+                <th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">
+                  <a href="{{ path(app.request.attributes.get('_route')) }}"
+                    class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-900 transition">
+                    🔄 Reset
+                  </a>
+                </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
@@ -150,10 +160,9 @@
                       </div>
                     </div>
                   </div>
-
                   </td>
-
                 {% endif %}
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-center text-gray-500"></td>
               </tr>
             {% else %}
             <tr>
@@ -162,6 +171,12 @@
             {% endfor %}
             </tbody>
           </table>
+
+          <!-- Pagination -->
+          {% do users.setPageRange(5) %}
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            {{ knp_pagination_render(users, 'partials/_pagination.html.twig') }}
+          </div>
         </div>
       </div>
     </div>

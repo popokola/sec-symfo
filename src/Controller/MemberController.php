@@ -10,16 +10,27 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Form\AddUserForm;
+use App\Form\UpdateProfileForm;
 
 #[IsGranted('ROLE_ADMIN', message: 'You are not allowed to perform this action.')]
 final class MemberController extends AbstractController
 {
     #[Route('/dashboard/member', name: 'app_member')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
-        $users = $userRepository->findAll();
+        $page = $request->query->getInt('page', 1);
+        $limit = 10; // Number of users per page
+        $users = $userRepository->findAllPaginated($page, $limit);
+        $maxPages = ceil($users->count() / $limit);
+        if ($page < 1 || $page > $maxPages) {
+            $this->addFlash('error', 'Invalid page number.');
+            return $this->redirectToRoute('app_member', ['page' => 1]);
+        }
+
         return $this->render('member/index.html.twig', [
             'users' => $users,
+            'MaxPages' => $maxPages,
+            'page' => $page,
         ]);
     }
 
@@ -28,7 +39,7 @@ final class MemberController extends AbstractController
     public function editOne(User $user, userRepository $userRepository, Request $request): Response
     {
         
-        $form = $this->createForm(AddUserForm::class, $user);
+        $form = $this->createForm(UpdateProfileForm::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

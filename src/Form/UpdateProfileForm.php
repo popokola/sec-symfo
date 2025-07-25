@@ -8,6 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\CallbackTransformer;
+
 
 class UpdateProfileForm extends AbstractType
 {
@@ -16,13 +19,35 @@ class UpdateProfileForm extends AbstractType
         $builder
             ->add('firstname')
             ->add('lastname')
+            ->add('roles', ChoiceType::class, [
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices'  => [
+                  'Student' => 'ROLE_STUDENT',
+                  'Admin' => 'ROLE_ADMIN',
+                ],
+            ])
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                "required" => false,
+                'required' => false,
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
             ))
         ;
+
+
+         $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                     // transform the array to a string
+                     return count($rolesArray)? $rolesArray[0]: null;
+                },
+                function ($rolesString) {
+                     // transform the string back to an array
+                     return [$rolesString];
+                }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

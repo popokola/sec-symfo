@@ -3,74 +3,108 @@
 {% block title %}Profile{% endblock %}
 {% block body %}
 
-{{ form_start(updateMemberForm) }}
-<form class="space-y-8 divide-y divide-gray-200">
-    <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-      <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
-        <div>
-          <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-slate-300">Personal Information</h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-slate-400">Use a permanent address where you can receive mail.</p>
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-slate-300">Personal Information</h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-slate-400">Use a permanent address where you can receive mail.</p>
+</div>
+
+<div class="mx-auto max-w-4xl mt-6 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-6">
+          {{ form_start(updateMemberForm) }}
+          <form class="space-y-8">
+              <div class="space-y-8 sm:space-y-5">
+                  <div class="space-y-6 sm:space-y-5">
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5">
+                      <label for="first-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">First name</label>
+                      <div class="mt-1 sm:col-span-2 sm:mt-0">
+                      {{ form_widget(updateMemberForm.firstname, {
+                              attr: {
+                              class: 'block w-full max-w-xs rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6',
+                              placeholder: 'Amount'
+                              }
+                          }) }}
+                      </div>
+                      {{ form_errors(updateMemberForm.firstname ) }}
+                    </div>
+            
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">Last name</label>
+                      <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(updateMemberForm.lastname, {
+                              attr: {
+                              class: 'block w-full max-w-xs rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6',
+                              placeholder: 'Last name'
+                              }
+                          }) }}
+                      </div>
+                      {{ form_errors(updateMemberForm.lastname ) }}
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      {{ form_label(updateMemberForm.plainPassword.second, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2'}}) }}
+                      <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(updateMemberForm.plainPassword.first,{
+                              attr: {
+                              class: 'block w-full max-w-xs rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6',
+                              placeholder: 'New Password',
+                              autocomplete: 'new-password',
+                              }
+                          })}}
+                      </div>
+                      {{ form_errors(updateMemberForm.plainPassword.first ) }}
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      {{ form_label(updateMemberForm.plainPassword.second, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2'}}) }}
+                      <div class="mt-1 sm:col-span-2 sm:mt-0">
+                          {{ form_widget(updateMemberForm.plainPassword.second,{
+                              attr: {
+                              class: 'block w-full max-w-xs rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6',
+                              placeholder: 'Confirm Password'
+                              }
+                          })}}
+                      </div>
+                      {{ form_errors(updateMemberForm.plainPassword.second ) }}
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <label for="{{ updateMemberForm.roles.vars.id }}" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">
+                        Select role
+                      </label>
+                      <div class="mt-1 sm:col-span-2 sm:mt-0 relative max-w-xs">
+                        {{ form_widget(updateMemberForm.roles, {
+                          attr: {
+                            class: 'w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 sm:text-sm/6'
+                          }
+                        }) }}
+
+                        <!-- Chevron Icon placed absolutely inside the select wrapper -->
+                        <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
+                            viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                        </svg>
+
+                        {{ form_errors(updateMemberForm.roles) }}
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+
+            
+              {{ form_rest(updateMemberForm) }}
+              <div class="pt-5">
+                <div class="flex justify-end">
+                  <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
+                </div>
+              </div>
+            </form>
+          {{ form_end(updateMemberForm) }}
+  
         </div>
-        <div class="space-y-6 sm:space-y-5">
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="first-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">First name</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              {{ form_widget(updateMemberForm.firstname, {'attr':  {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.email ) }}
-          </div>
-  
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">Last name</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              {{ form_widget(updateMemberForm.lastname, {'attr':  {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.email ) }}
-          </div>
-  
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">Email address</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              {{ form_widget(updateMemberForm.email, {'attr':  {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.email ) }}
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">New Password</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-              {{ form_widget(updateMemberForm.plainPassword.first,{'attr': {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.plainPassword.first ) }}
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">Confirm Password</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-                {{ form_widget(updateMemberForm.plainPassword.second,{'attr': {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.plainPassword.second ) }}
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-slate-300 sm:mt-px sm:pt-2">Select role</label>
-            <div class="mt-1 sm:col-span-2 sm:mt-0">
-                 {{ form_widget(updateMemberForm.roles ,{'attr': {'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm'}} )}}
-            </div>
-            {{ form_errors(updateMemberForm.roles ) }}
-          </div>
-        </div>
-      </div>
     </div>
+</div>
 
-   
-    {{ form_rest(updateMemberForm) }}
-    <div class="pt-5">
-      <div class="flex justify-end">
-        <button type="submit" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
-      </div>
-    </div>
-  </form>
-{{ form_end(updateMemberForm) }}
-  
 {% endblock %}
