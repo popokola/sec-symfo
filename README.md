@@ -50,4 +50,4 @@ Symfony Docker is available under the MIT License.
 
 Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
 
-ad
+
